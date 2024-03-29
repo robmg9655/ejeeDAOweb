@@ -46,17 +46,251 @@
       </nav>
 
       <!-- MAIN INFO -->
-      <div>
-        <h1>PRUEBA</h1>
+      <button id="addEventButton" onclick="openPasswordPopup()">+</button>
+
+      <div id="passwordPopup" class="popup">
+        <div class="popup-content">
+          <span class="close" onclick="closePasswordPopup()">&times;</span>
+          <h2>Introduce la contraseña</h2>
+          <input type="password" id="passwordInput" />
+          <button onclick="checkPassword()">Confirmar</button>
+        </div>
       </div>
+
+      <div id="eventPopup" class="popup">
+        <div class="popup-content">
+          <span class="close" onclick="closeEventPopup()">&times;</span>
+          <h2>Añadir Evento</h2>
+          <form id="eventForm">
+            <label for="eventName">Nombre del evento:</label><br />
+            <input type="text" id="eventName" name="eventName" required /><br />
+
+            <label for="eventPhoto">Foto (link):</label><br />
+            <input
+              type="text"
+              id="eventPhoto"
+              name="eventPhoto"
+              required
+            /><br />
+
+            <label for="eventDateTime">Fecha y hora:</label><br />
+            <input
+              type="datetime-local"
+              id="eventDateTime"
+              name="eventDateTime"
+              required
+            /><br />
+
+            <label for="eventRed">Red:</label><br />
+            <select id="eventRed" name="eventRed" required>
+              <option value="BTC">BTC</option>
+              <option value="SOL">SOL</option>
+              <option value="ETH">ETH</option>
+              <option value="SEI">SEI</option></select
+            ><br />
+
+            <label for="eventAmount">Cantidad:</label><br />
+            <input
+              type="number"
+              id="eventAmount"
+              name="eventAmount"
+              required
+            /><br />
+
+            <label for="eventPrice">Precio:</label><br />
+            <input
+              type="number"
+              id="eventPrice"
+              name="eventPrice"
+              step="0.01"
+              required
+            /><br />
+
+            <label for="eventMintLink">Link minteo:</label><br />
+            <input
+              type="text"
+              id="eventMintLink"
+              name="eventMintLink"
+              required
+            /><br />
+
+            <label for="eventDiscord">Discord:</label><br />
+            <input
+              type="text"
+              id="eventDiscord"
+              name="eventDiscord"
+              required
+            /><br />
+
+            <label for="eventTwitter">Twitter:</label><br />
+            <input
+              type="text"
+              id="eventTwitter"
+              name="eventTwitter"
+              required
+            /><br />
+
+            <button type="button" onclick="submitEvent()">Guardar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="grid-container" id="eventContainer"></div>
 
       <!-- Footer -->
       <footer>
         <p>EjeeDao &copy; 2024</p>
       </footer>
+
+      <style>
+        .popup {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .popup-content {
+          background-color: #fefefe;
+          margin: 10% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+        }
+
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(
+            5,
+            1fr
+          ); /* 5 columnas de tamaño igual */
+          grid-gap: 10px; /* Espacio entre las celdas */
+        }
+
+        .event-box {
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+      </style>
+
+      <script>
+        const addEventButton = document.getElementById('addEventButton');
+    const passwordPopup = document.getElementById('passwordPopup');
+    const eventPopup = document.getElementById('eventPopup');
+    const eventContainer = document.getElementById('eventContainer');
+    let events = []; // Array para almacenar los eventos
+
+    function openPasswordPopup() {
+      passwordPopup.style.display = 'block';
+    }
+
+    function closePasswordPopup() {
+      passwordPopup.style.display = 'none';
+    }
+
+    function checkPassword() {
+      const passwordInput = document.getElementById('passwordInput').value;
+      // Aquí puedes comparar la contraseña con la que tienes guardada
+      // En este ejemplo, simplemente se compara con una contraseña fija
+      if (passwordInput === 'CKR') {
+        openEventPopup();
+      } else {
+        alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
+      }
+    }
+
+    function openEventPopup() {
+      eventPopup.style.display = 'block';
+    }
+
+    function closeEventPopup() {
+      eventPopup.style.display = 'none';
+    }
+
+    function submitEvent() {
+      // Recoger datos del formulario
+      const eventName = document.getElementById('eventName').value;
+      const eventPhoto = document.getElementById('eventPhoto').value;
+      const eventDateTime = document.getElementById('eventDateTime').value;
+      const eventRed = document.getElementById('eventRed').value;
+      const eventAmount = document.getElementById('eventAmount').value;
+      const eventPrice = document.getElementById('eventPrice').value;
+      const eventMintLink = document.getElementById('eventMintLink').value;
+      const eventDiscord = document.getElementById('eventDiscord').value;
+      const eventTwitter = document.getElementById('eventTwitter').value;
+
+      // Crear nuevo elemento div para representar el recuadro del evento
+      const eventBox = document.createElement('div');
+      eventBox.classList.add('event-box');
+
+      // Llenar el contenido del recuadro del evento con los datos del formulario
+      eventBox.innerHTML = `
+        <h3>${eventName}</h3>
+        <img src="${eventPhoto}" alt="Event Photo">
+        <p>Fecha y Hora: ${eventDateTime}</p>
+        <p>Red: ${eventRed}</p>
+        <p>Cantidad: ${eventAmount}</p>
+        <p>Precio: ${eventPrice}</p>
+        <p>Link minteo: ${eventMintLink}</p>
+        <p>Discord: ${eventDiscord}</p>
+        <p>Twitter: ${eventTwitter}</p>
+      `;
+
+      // Agregar el recuadro del evento al contenedor
+      eventContainer.appendChild(eventBox);
+
+      // Añadir evento al array
+      addEvent(eventName, eventDateTime);
+
+      // Cerrar el popup después de enviar el formulario
+      closeEventPopup();
+    }
+
+    // Función para agregar un evento
+    function addEvent(eventName, eventDateTime) {
+      const event = {
+        eventName: eventName,
+        eventDateTime: new Date(eventDateTime),
+        // Otros campos del evento...
+      };
+
+      // Calcular el tiempo restante hasta el evento
+      const timeUntilEvent = event.eventDateTime - Date.now();
+
+      // Programar la eliminación del evento una hora después de la fecha y hora del evento
+      setTimeout(() => {
+        deleteEvent(event);
+      }, timeUntilEvent + 3600000); // Sumamos una hora en milisegundos
+    }
+
+    // Función para eliminar un evento
+    function deleteEvent(event) {
+      const index = events.indexOf(event);
+      if (index !== -1) {
+        events.splice(index, 1);
+        console.log(`Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`);
+      }
+    }
+      </script>
     </div>
   </body>
-
-
-
 </html>
