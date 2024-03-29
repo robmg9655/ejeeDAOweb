@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EjeeDao Web</title>
+    <script
+      src="https://kit.fontawesome.com/bd9bcfe1f7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Header nav -->
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <img
+              src="img/LOGOejeeDao.png"
+              alt="logo-ejeedao"
+              class="logo-img"
+            />
+          </li>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="calendarioNFT.html">NFTs</a>
+          </li>
+          <li>
+            <a href="juegosweb3.html">Juegos Web3</a>
+          </li>
+          <li>
+            <a href="contacto.html">Contacto</a>
+          </li>
+          <li>
+            <a href="listNft.html">List NFT</a>
+          </li>
+          <li>
+            <a href="#">Log In</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- MAIN INFO -->
+      <div class="contact-container">
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          class="contact-left"
+        >
+          <div class="contact-left-title">
+            <h2>¡Contacta con nosotros!</h2>
+            <hr />
+          </div>
+          <input
+            type="hidden"
+            name="access_key"
+            value="f989bcf2-9144-47a4-a442-8794843bdf92"
+          />
+          <input
+            type="text"
+            name="Nombre"
+            placeholder="Tu nombre"
+            class="contact-inputs"
+            required
+          />
+          <input
+            type="email"
+            name="Dirección de correo"
+            placeholder="Tu correo electrónico"
+            class="contact-inputs"
+            required
+          />
+          <textarea
+            name="message"
+            placeholder="Tu mensaje"
+            class="contact-inputs"
+            required
+          ></textarea>
+          <button type="enviar">Enviar</button>
+        </form>
+        <div class="contact-right">
+          <img src="/img/pexels-maksim-goncharenok-5605061.jpg" alt="" />
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p>EjeeDao &copy; 2024</p>
+      </footer>
+    </div>
+  </body>
+</html>
