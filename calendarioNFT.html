@@ -46,14 +46,22 @@
       </nav>
 
       <!-- MAIN INFO -->
-      <button id="addEventButton" onclick="openPasswordPopup()">+</button>
+      <button id="addEventButton" onclick="openPasswordPopup()">
+        <i class="fa-regular fa-square-plus"></i>
+      </button>
 
       <div id="passwordPopup" class="popup">
         <div class="popup-content">
           <span class="close" onclick="closePasswordPopup()">&times;</span>
-          <h2>Introduce la contraseña</h2>
-          <input type="password" id="passwordInput" />
-          <button onclick="checkPassword()">Confirmar</button>
+          <h2>CONTRASEÑA</h2>
+          <input
+            type="password"
+            id="passwordInput"
+            onkeypress="handleKeyPress(event)"
+          />
+          <button id="confirmButton" onclick="checkPassword()">
+            Confirmar
+          </button>
         </div>
       </div>
 
@@ -130,7 +138,7 @@
               required
             /><br />
 
-            <button type="button" onclick="submitEvent()">Guardar</button>
+            <button type="button" onclick="submitEvent()" onkeypress="handleKeyPress(event)">Guardar</button>
           </form>
         </div>
       </div>
@@ -143,6 +151,23 @@
       </footer>
 
       <style>
+        #addEventButton {
+          background-color: purple; /* Color de fondo */
+          color: white; /* Color del texto */
+          border: none; /* Sin borde */
+          border-radius: 50%; /* Botón circular */
+          width: 50px; /* Ancho del botón */
+          height: 50px; /* Altura del botón */
+          font-size: 24px; /* Tamaño del ícono */
+          cursor: pointer; /* Cursor de apuntar */
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+          margin: 0px 40em;
+        }
+
+        #addEventButton:hover {
+          background-color: cyan;
+          color: black; /* Color de fondo al pasar el mouse */
+        }
         .popup {
           display: none;
           position: fixed;
@@ -156,11 +181,33 @@
         }
 
         .popup-content {
-          background-color: #fefefe;
+          background-color: #fff;
           margin: 10% auto;
           padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
+          border: 5px solid purple;
+          width: 20%;
+          font-size: 1.5em;
+        }
+
+        #passwordInput {
+          width: 300px; /* Ancho del campo de contraseña */
+          height: 40px; /* Altura del campo de contraseña */
+          font-size: 16px; /* Tamaño de la fuente del campo de contraseña */
+          margin-bottom: 10px; /* Margen inferior del campo de contraseña */
+        }
+
+        #confirmButton {
+          width: 300px;
+          font-size: 1.2em; /* Tamaño de la fuente del botón de confirmar */
+          background-color: #007bff; /* Color de fondo del botón */
+          color: black; /* Color del texto del botón */
+          border: none; /* Sin borde */
+          border-radius: 5px; /* Borde redondeado */
+          cursor: pointer; /* Cursor de apuntar */
+        }
+
+        #confirmButton:hover {
+          background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
         }
 
         .close {
@@ -190,60 +237,165 @@
           border: 1px solid #ccc;
           padding: 10px;
         }
+
+        /* Estilos para el formulario de agregar evento */
+        .popup-content {
+          padding: 20px;
+        }
+
+        #eventPopup {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #eventPopup .popup-content {
+          background-color: #fefefe;
+          margin: 5% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+          max-width: 600px;
+        }
+
+        #eventPopup .close {
+          color: #aaa;
+          float: right;
+          font-size: 50px;
+          font-weight: bold;
+        }
+
+        #eventPopup .close:hover,
+        #eventPopup .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        #eventPopup h2 {
+          margin-top: 0;
+        }
+
+        #eventPopup label {
+          font-weight: bold;
+        }
+
+        #eventPopup input[type="text"],
+        #eventPopup input[type="number"],
+        #eventPopup select {
+          width: calc(100% - 10px);
+          padding: 10px;
+          margin: 5px 0;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+
+        #eventPopup button[type="button"] {
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #eventPopup button[type="button"]:hover {
+          background-color: #0056b3;
+        }
+
+        /* Estilos específicos para los elementos del formulario */
+        #eventPopup input[type="datetime-local"] {
+          width: 100%;
+          font-size: 1.2em;
+          color: rgb(81, 81, 81);
+        }
+
+        #eventPopup select {
+          width: 100%; /* Ancho completo para select */
+        }
+
+        #eventPopup textarea {
+          width: calc(100% - 10px); /* Ancho completo para textarea */
+          height: 100px; /* Altura específica para textarea */
+        }
+
+        #eventPopup button[type="button"] {
+          background-color: #007bff;
+          color: #fff;
+          padding: 15px 30px; /* Aumenta el padding para hacer el botón más grande */
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          display: block; /* Para que el botón ocupe todo el ancho del contenedor */
+          margin: 0 auto; /* Para centrar horizontalmente */
+        }
       </style>
 
       <script>
-        const addEventButton = document.getElementById('addEventButton');
-    const passwordPopup = document.getElementById('passwordPopup');
-    const eventPopup = document.getElementById('eventPopup');
-    const eventContainer = document.getElementById('eventContainer');
-    let events = []; // Array para almacenar los eventos
+        const addEventButton = document.getElementById("addEventButton");
+        const passwordPopup = document.getElementById("passwordPopup");
+        const eventPopup = document.getElementById("eventPopup");
+        const eventContainer = document.getElementById("eventContainer");
+        let events = []; // Array para almacenar los eventos
 
-    function openPasswordPopup() {
-      passwordPopup.style.display = 'block';
-    }
+        function openPasswordPopup() {
+          passwordPopup.style.display = "block";
+        }
 
-    function closePasswordPopup() {
-      passwordPopup.style.display = 'none';
-    }
+        function closePasswordPopup() {
+          passwordPopup.style.display = "none";
+        }
 
-    function checkPassword() {
-      const passwordInput = document.getElementById('passwordInput').value;
-      // Aquí puedes comparar la contraseña con la que tienes guardada
-      // En este ejemplo, simplemente se compara con una contraseña fija
-      if (passwordInput === 'CKR') {
-        openEventPopup();
-      } else {
-        alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
-      }
-    }
+        function handleKeyPress(event) {
+          if (event.key === "Enter") {
+            event.preventDefault(); // Evitar que se envíe el formulario si está dentro de uno
+            checkPassword();
+          }
+        }
+        function checkPassword() {
+          const passwordInput = document.getElementById("passwordInput").value;
+          // Aquí puedes comparar la contraseña con la que tienes guardada
+          // En este ejemplo, simplemente se compara con una contraseña fija
+          if (passwordInput === "CKR") {
+            openEventPopup();
+            closePasswordPopup();
+          } else {
+            alert("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
+          }
+        }
 
-    function openEventPopup() {
-      eventPopup.style.display = 'block';
-    }
+        function openEventPopup() {
+          eventPopup.style.display = "block";
+        }
 
-    function closeEventPopup() {
-      eventPopup.style.display = 'none';
-    }
+        function closeEventPopup() {
+          eventPopup.style.display = "none";
+        }
 
-    function submitEvent() {
-      // Recoger datos del formulario
-      const eventName = document.getElementById('eventName').value;
-      const eventPhoto = document.getElementById('eventPhoto').value;
-      const eventDateTime = document.getElementById('eventDateTime').value;
-      const eventRed = document.getElementById('eventRed').value;
-      const eventAmount = document.getElementById('eventAmount').value;
-      const eventPrice = document.getElementById('eventPrice').value;
-      const eventMintLink = document.getElementById('eventMintLink').value;
-      const eventDiscord = document.getElementById('eventDiscord').value;
-      const eventTwitter = document.getElementById('eventTwitter').value;
+        function submitEvent() {
+          // Recoger datos del formulario
+          const eventName = document.getElementById("eventName").value;
+          const eventPhoto = document.getElementById("eventPhoto").value;
+          const eventDateTime = document.getElementById("eventDateTime").value;
+          const eventRed = document.getElementById("eventRed").value;
+          const eventAmount = document.getElementById("eventAmount").value;
+          const eventPrice = document.getElementById("eventPrice").value;
+          const eventMintLink = document.getElementById("eventMintLink").value;
+          const eventDiscord = document.getElementById("eventDiscord").value;
+          const eventTwitter = document.getElementById("eventTwitter").value;
 
-      // Crear nuevo elemento div para representar el recuadro del evento
-      const eventBox = document.createElement('div');
-      eventBox.classList.add('event-box');
+          // Crear nuevo elemento div para representar el recuadro del evento
+          const eventBox = document.createElement("div");
+          eventBox.classList.add("event-box");
 
-      // Llenar el contenido del recuadro del evento con los datos del formulario
-      eventBox.innerHTML = `
+          // Llenar el contenido del recuadro del evento con los datos del formulario
+          eventBox.innerHTML = `
         <h3>${eventName}</h3>
         <img src="${eventPhoto}" alt="Event Photo">
         <p>Fecha y Hora: ${eventDateTime}</p>
@@ -255,41 +407,43 @@
         <p>Twitter: ${eventTwitter}</p>
       `;
 
-      // Agregar el recuadro del evento al contenedor
-      eventContainer.appendChild(eventBox);
+          // Agregar el recuadro del evento al contenedor
+          eventContainer.appendChild(eventBox);
 
-      // Añadir evento al array
-      addEvent(eventName, eventDateTime);
+          // Añadir evento al array
+          addEvent(eventName, eventDateTime);
 
-      // Cerrar el popup después de enviar el formulario
-      closeEventPopup();
-    }
+          // Cerrar el popup después de enviar el formulario
+          closeEventPopup();
+        }
 
-    // Función para agregar un evento
-    function addEvent(eventName, eventDateTime) {
-      const event = {
-        eventName: eventName,
-        eventDateTime: new Date(eventDateTime),
-        // Otros campos del evento...
-      };
+        // Función para agregar un evento
+        function addEvent(eventName, eventDateTime) {
+          const event = {
+            eventName: eventName,
+            eventDateTime: new Date(eventDateTime),
+            // Otros campos del evento...
+          };
 
-      // Calcular el tiempo restante hasta el evento
-      const timeUntilEvent = event.eventDateTime - Date.now();
+          // Calcular el tiempo restante hasta el evento
+          const timeUntilEvent = event.eventDateTime - Date.now();
 
-      // Programar la eliminación del evento una hora después de la fecha y hora del evento
-      setTimeout(() => {
-        deleteEvent(event);
-      }, timeUntilEvent + 3600000); // Sumamos una hora en milisegundos
-    }
+          // Programar la eliminación del evento una hora después de la fecha y hora del evento
+          setTimeout(() => {
+            deleteEvent(event);
+          }, timeUntilEvent + 3600000); // Sumamos una hora en milisegundos
+        }
 
-    // Función para eliminar un evento
-    function deleteEvent(event) {
-      const index = events.indexOf(event);
-      if (index !== -1) {
-        events.splice(index, 1);
-        console.log(`Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`);
-      }
-    }
+        // Función para eliminar un evento
+        function deleteEvent(event) {
+          const index = events.indexOf(event);
+          if (index !== -1) {
+            events.splice(index, 1);
+            console.log(
+              `Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`
+            );
+          }
+        }
       </script>
     </div>
   </body>
