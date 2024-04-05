@@ -298,7 +298,7 @@
           width: calc(100% - 10px);
           padding: 10px;
           margin: 5px 0;
-          border: 1px solid #fff;
+          border: 1px solid black;
           border-radius: 5px;
         }
 
@@ -319,7 +319,7 @@
         #eventPopup input[type="datetime-local"] {
           width: 100%;
           font-size: 1.2em;
-          color: #fff;
+          color: black;
         }
 
         #eventPopup select {
@@ -340,6 +340,9 @@
           cursor: pointer;
           display: block; /* Para que el botón ocupe todo el ancho del contenedor */
           margin: 0 auto; /* Para centrar horizontalmente */
+        }
+        .event-box h3 {
+          color: white;
         }
       </style>
 
@@ -402,16 +405,16 @@
 
           // Llenar el contenido del recuadro del evento con los datos del formulario
           eventBox.innerHTML = `
-        <h3>${eventName}</h3>
-        <img src="${eventPhoto}" alt="Event Photo">
-        <p>Fecha y Hora: ${eventDateTime}</p>
-        <p>Red: ${eventRed}</p>
-        <p>Cantidad: ${eventAmount}</p>
-        <p>Precio: ${eventPrice}</p>
-        <p>Link minteo: ${eventMintLink}</p>
-        <p>Discord: ${eventDiscord}</p>
-        <p>Twitter: ${eventTwitter}</p>
-      `;
+          <h3 style="color: white;">${eventName}</h3>
+          <img src="${eventPhoto}" alt="Event Photo" style="background-color: black;">
+          <p style="color: white;">Fecha y Hora: ${eventDateTime}</p>
+          <p style="color: white;">Red: ${eventRed}</p>
+          <p style="color: white;">Cantidad: ${eventAmount}</p>
+          <p style="color: white;">Precio: ${eventPrice}</p>
+          <p style="color: white;">Link minteo: <a href="${eventMintLink}" style="color: white;" target="_blank">${eventMintLink}</a></p>
+          <p style="color: white;">Discord: <a href="${eventDiscord}" style="color: white;" target="_blank">${eventDiscord}</a></p>
+          <p style="color: white;">Twitter: <a href="${eventTwitter}" style="color: white;" target="_blank">${eventTwitter}</a></p>
+          `;
 
           // Agregar el recuadro del evento al contenedor
           eventContainer.appendChild(eventBox);
