@@ -233,10 +233,13 @@
         .grid-container {
           display: grid;
           grid-template-columns: repeat(
-            5,
+            4,
             1fr
           ); /* 5 columnas de tamaño igual */
           grid-gap: 10px; /* Espacio entre las celdas */
+          align-content: center;
+          overflow-x: auto;
+          white-space: nowrap;
         }
 
         .event-box {
