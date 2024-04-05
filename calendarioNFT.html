@@ -11,7 +11,6 @@
     ></script>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
     <div class="wrapper">
       <!-- Header nav -->
@@ -138,7 +137,13 @@
               required
             /><br />
 
-            <button type="button" onclick="submitEvent()" onkeypress="handleKeyPress(event)">Guardar</button>
+            <button
+              type="button"
+              onclick="submitEvent()"
+              onkeypress="handleKeyPress(event)"
+            >
+              Guardar
+            </button>
           </form>
         </div>
       </div>
@@ -151,190 +156,7 @@
       </footer>
 
       <style>
-        #addEventButton {
-          background-color: purple; /* Color de fondo */
-          color: white; /* Color del texto */
-          border: none; /* Sin borde */
-          border-radius: 50%; /* Botón circular */
-          width: 50px; /* Ancho del botón */
-          height: 50px; /* Altura del botón */
-          font-size: 24px; /* Tamaño del ícono */
-          cursor: pointer; /* Cursor de apuntar */
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
-          margin: 0px 40em;
-        }
-
-        #addEventButton:hover {
-          background-color: cyan;
-          color: black; /* Color de fondo al pasar el mouse */
-        }
-        .popup {
-          display: none;
-          position: fixed;
-          z-index: 1;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .popup-content {
-          background-color: #fff;
-          margin: 10% auto;
-          padding: 20px;
-          border: 5px solid purple;
-          width: 20%;
-          font-size: 1.5em;
-        }
-
-        #passwordInput {
-          width: 300px; /* Ancho del campo de contraseña */
-          height: 40px; /* Altura del campo de contraseña */
-          font-size: 16px; /* Tamaño de la fuente del campo de contraseña */
-          margin-bottom: 10px; /* Margen inferior del campo de contraseña */
-        }
-
-        #confirmButton {
-          width: 300px;
-          font-size: 1.2em; /* Tamaño de la fuente del botón de confirmar */
-          background-color: #007bff; /* Color de fondo del botón */
-          color: black; /* Color del texto del botón */
-          border: none; /* Sin borde */
-          border-radius: 5px; /* Borde redondeado */
-          cursor: pointer; /* Cursor de apuntar */
-        }
-
-        #confirmButton:hover {
-          background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
-        }
-
-        .close {
-          color: #aaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-        .grid-container {
-          display: grid;
-          grid-template-columns: repeat(
-            5,
-            1fr
-          ); /* 5 columnas de tamaño igual */
-          grid-gap: 10px; /* Espacio entre las celdas */
-        }
-
-        .event-box {
-          border: 1px solid #ccc;
-          padding: 10px;
-        }
-
-        /* Estilos para el formulario de agregar evento */
-        .popup-content {
-          padding: 20px;
-        }
-
-        #eventPopup {
-          display: none;
-          position: fixed;
-          z-index: 1;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        #eventPopup .popup-content {
-          background-color: #fefefe;
-          margin: 5% auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
-          max-width: 600px;
-        }
-
-        #eventPopup .close {
-          color: #aaa;
-          float: right;
-          font-size: 50px;
-          font-weight: bold;
-        }
-
-        #eventPopup .close:hover,
-        #eventPopup .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-        #eventPopup h2 {
-          margin-top: 0;
-        }
-
-        #eventPopup label {
-          font-weight: bold;
-        }
-
-        #eventPopup input[type="text"],
-        #eventPopup input[type="number"],
-        #eventPopup select {
-          width: calc(100% - 10px);
-          padding: 10px;
-          margin: 5px 0;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-        }
-
-        #eventPopup button[type="button"] {
-          background-color: #007bff;
-          color: #fff;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-
-        #eventPopup button[type="button"]:hover {
-          background-color: #0056b3;
-        }
-
-        /* Estilos específicos para los elementos del formulario */
-        #eventPopup input[type="datetime-local"] {
-          width: 100%;
-          font-size: 1.2em;
-          color: rgb(81, 81, 81);
-        }
-
-        #eventPopup select {
-          width: 100%; /* Ancho completo para select */
-        }
-
-        #eventPopup textarea {
-          width: calc(100% - 10px); /* Ancho completo para textarea */
-          height: 100px; /* Altura específica para textarea */
-        }
-
-        #eventPopup button[type="button"] {
-          background-color: #007bff;
-          color: #fff;
-          padding: 15px 30px; /* Aumenta el padding para hacer el botón más grande */
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          display: block; /* Para que el botón ocupe todo el ancho del contenedor */
-          margin: 0 auto; /* Para centrar horizontalmente */
-        }
+        /* Estilos omitidos para mayor claridad */
       </style>
 
       <script>
@@ -343,6 +165,11 @@
         const eventPopup = document.getElementById("eventPopup");
         const eventContainer = document.getElementById("eventContainer");
         let events = []; // Array para almacenar los eventos
+
+        // Cargar eventos almacenados al cargar la página
+        window.onload = function () {
+          loadEventsFromJSON();
+        };
 
         function openPasswordPopup() {
           passwordPopup.style.display = "block";
@@ -358,6 +185,7 @@
             checkPassword();
           }
         }
+
         function checkPassword() {
           const passwordInput = document.getElementById("passwordInput").value;
           // Aquí puedes comparar la contraseña con la que tienes guardada
@@ -396,22 +224,25 @@
 
           // Llenar el contenido del recuadro del evento con los datos del formulario
           eventBox.innerHTML = `
-        <h3>${eventName}</h3>
-        <img src="${eventPhoto}" alt="Event Photo">
-        <p>Fecha y Hora: ${eventDateTime}</p>
-        <p>Red: ${eventRed}</p>
-        <p>Cantidad: ${eventAmount}</p>
-        <p>Precio: ${eventPrice}</p>
-        <p>Link minteo: ${eventMintLink}</p>
-        <p>Discord: ${eventDiscord}</p>
-        <p>Twitter: ${eventTwitter}</p>
-      `;
+                <h3>${eventName}</h3>
+                <img src="${eventPhoto}" alt="Event Photo">
+                <p>Fecha y Hora: ${eventDateTime}</p>
+                <p>Red: ${eventRed}</p>
+                <p>Cantidad: ${eventAmount}</p>
+                <p>Precio: ${eventPrice}</p>
+                <p>Link minteo: ${eventMintLink}</p>
+                <p>Discord: ${eventDiscord}</p>
+                <p>Twitter: ${eventTwitter}</p>
+            `;
 
           // Agregar el recuadro del evento al contenedor
           eventContainer.appendChild(eventBox);
 
           // Añadir evento al array
           addEvent(eventName, eventDateTime);
+
+          // Guardar eventos en el archivo JSON
+          saveEventsToJSON();
 
           // Cerrar el popup después de enviar el formulario
           closeEventPopup();
@@ -442,7 +273,43 @@
             console.log(
               `Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`
             );
+
+            // Guardar eventos actualizados en el archivo JSON
+            saveEventsToJSON();
           }
+        }
+
+        // Función para guardar los eventos en el archivo JSON
+        function saveEventsToJSON() {
+          // Convertir el array de eventos a formato JSON
+          const eventsJSON = JSON.stringify(events);
+
+          // Guardar los datos en el archivo events.json
+          // Puedes implementar la lógica para guardar en el servidor si es necesario
+          localStorage.setItem("events", eventsJSON);
+        }
+
+        // Función para cargar los eventos almacenados del archivo JSON
+        function loadEventsFromJSON() {
+          const eventsJSON = localStorage.getItem("events");
+          if (eventsJSON) {
+            events = JSON.parse(eventsJSON);
+            // Mostrar eventos en la página
+            events.forEach((event) => {
+              addEventToPage(event);
+            });
+          }
+        }
+
+        // Función para agregar un evento a la página
+        function addEventToPage(event) {
+          const eventBox = document.createElement("div");
+          eventBox.classList.add("event-box");
+          eventBox.innerHTML = `
+                <h3>${event.eventName}</h3>
+                <p>Fecha y Hora: ${event.eventDateTime}</p>
+            `;
+          eventContainer.appendChild(eventBox);
         }
       </script>
     </div>
