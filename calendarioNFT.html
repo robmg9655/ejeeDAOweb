@@ -233,13 +233,14 @@
         .grid-container {
           display: grid;
           grid-template-columns: repeat(
-            4,
-            1fr
-          ); /* 5 columnas de tamaño igual */
+            auto-fill,
+            minmax(300px, 1fr)
+          ); /* Columnas de tamaño mínimo de 300px y se ajustan automáticamente */
           grid-gap: 10px; /* Espacio entre las celdas */
-          align-content: center;
-          overflow-x: auto;
-          white-space: nowrap;
+          overflow-y: auto; /* Habilita el desplazamiento vertical */
+          max-height: calc(
+            100vh - 150px
+          ); /* Altura máxima del contenedor, ajusta según necesites */
         }
 
         .event-box {
