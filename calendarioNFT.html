@@ -138,13 +138,7 @@
               required
             /><br />
 
-            <button
-              type="button"
-              onclick="submitEvent()"
-              onkeypress="handleKeyPress(event)"
-            >
-              Guardar
-            </button>
+            <button type="button" onclick="submitEvent()" onkeypress="handleKeyPress(event)">Guardar</button>
           </form>
         </div>
       </div>
@@ -343,22 +337,37 @@
         }
       </style>
 
-      <!-- Script -->
       <script>
-        // Variables globales
         const addEventButton = document.getElementById("addEventButton");
         const passwordPopup = document.getElementById("passwordPopup");
         const eventPopup = document.getElementById("eventPopup");
         const eventContainer = document.getElementById("eventContainer");
         let events = []; // Array para almacenar los eventos
 
-        // Funciones para abrir y cerrar popups
         function openPasswordPopup() {
           passwordPopup.style.display = "block";
         }
 
         function closePasswordPopup() {
           passwordPopup.style.display = "none";
+        }
+
+        function handleKeyPress(event) {
+          if (event.key === "Enter") {
+            event.preventDefault(); // Evitar que se envíe el formulario si está dentro de uno
+            checkPassword();
+          }
+        }
+        function checkPassword() {
+          const passwordInput = document.getElementById("passwordInput").value;
+          // Aquí puedes comparar la contraseña con la que tienes guardada
+          // En este ejemplo, simplemente se compara con una contraseña fija
+          if (passwordInput === "CKR") {
+            openEventPopup();
+            closePasswordPopup();
+          } else {
+            alert("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
+          }
         }
 
         function openEventPopup() {
@@ -369,44 +378,6 @@
           eventPopup.style.display = "none";
         }
 
-        // Funciones para manipular los eventos
-        function addEvent(eventName, eventDateTime) {
-          const event = {
-            eventName: eventName,
-            eventDateTime: new Date(eventDateTime),
-            // Otros campos del evento...
-          };
-
-          // Agregar el nuevo evento al array de eventos
-          events.push(event);
-
-          // Guardar los eventos en el archivo JSON después de agregar uno nuevo
-          saveEventsToJSON();
-        }
-
-        function deleteEvent(event) {
-          const index = events.indexOf(event);
-          if (index !== -1) {
-            events.splice(index, 1);
-            console.log(
-              `Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`
-            );
-
-            // Guardar los eventos actualizados en el archivo JSON después de eliminar uno
-            saveEventsToJSON();
-          }
-        }
-
-        // Función para guardar los eventos en el archivo JSON
-        function saveEventsToJSON() {
-          // Convertir el array de eventos a formato JSON
-          const eventsJSON = JSON.stringify(events);
-
-          // Guardar los datos en el archivo events.json
-          // Puedes implementar la lógica para guardar en el servidor si es necesario
-        }
-
-        // Función para manejar el envío del formulario de evento
         function submitEvent() {
           // Recoger datos del formulario
           const eventName = document.getElementById("eventName").value;
@@ -444,6 +415,34 @@
 
           // Cerrar el popup después de enviar el formulario
           closeEventPopup();
+        }
+
+        // Función para agregar un evento
+        function addEvent(eventName, eventDateTime) {
+          const event = {
+            eventName: eventName,
+            eventDateTime: new Date(eventDateTime),
+            // Otros campos del evento...
+          };
+
+          // Calcular el tiempo restante hasta el evento
+          const timeUntilEvent = event.eventDateTime - Date.now();
+
+          // Programar la eliminación del evento una hora después de la fecha y hora del evento
+          setTimeout(() => {
+            deleteEvent(event);
+          }, timeUntilEvent + 3600000); // Sumamos una hora en milisegundos
+        }
+
+        // Función para eliminar un evento
+        function deleteEvent(event) {
+          const index = events.indexOf(event);
+          if (index !== -1) {
+            events.splice(index, 1);
+            console.log(
+              `Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`
+            );
+          }
         }
       </script>
     </div>
