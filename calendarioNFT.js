@@ -141,10 +141,10 @@ function deleteEvent(eventItem) {
 
 // Mostrar eventos guardados al cargar la página
 function loadEvents() {
-  const savedEvents = JSON.parse(localStorage.getItem("savedEvents")) || [];
-  savedEvents.forEach((event) => {
-    displayEvent(event);
-  });
-}
+   const savedEvents = JSON.parse(localStorage.getItem("savedEvents")) || [];
+   savedEvents.forEach((event) => {
+     displayEvent(event); // Llamar a displayEvent() con el objeto de evento completo
+   });
+ }
 
 loadEvents();
