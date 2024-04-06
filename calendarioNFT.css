@@ -1,0 +1,226 @@
+/* Estilos específicos para el calendario */
+
+/* BOTON ADD EVENTO */
+.add-event-btn {
+   background-color: rgba(0, 255, 247, 0.8); /* Color de fondo */
+   color: rgb(255, 255, 255); /* Color del texto */
+   padding: 14px 20px; /* Espaciado interno */
+   margin: 20px auto; /* Margen para centrarlo horizontalmente */
+   border: none; /* Sin borde */
+   border-radius: 20px; /* Bordes redondos */
+   cursor: pointer; /* Cursor */
+   font-size: 16px; /* Tamaño del texto */
+   display: block; /* Convertir a elemento de bloque para que ocupe todo el ancho disponible */
+}
+
+.add-event-btn:hover {
+   background-color: #6700bb; /* Cambio de color al pasar el ratón por encima */
+}
+
+.event {
+   background-color: #f0f0f0;
+   border: 1px solid #ccc;
+   padding: 5px;
+   margin-bottom: 5px;
+   position: relative;
+}
+
+.delete-event-btn {
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   background: none;
+   border: none;
+   cursor: pointer;
+   color: #ff0000;
+   font-size: 16px;
+}
+
+/* POPUP PASSWORD */
+.modal {
+   display: none;
+   position: fixed;
+   z-index: 9999; /* Asegurarse de que el modal esté por encima del contenido */
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+/* Estilos para el modal */
+.modal-content {
+   background-color: rgba(0, 255, 247, 0.8); /* Color de fondo */
+   margin: 15% auto;
+   padding: 20px;
+   border: none; /* Sin borde */
+   width: 60%; /* Ancho del modal */
+   max-width: 400px; /* Ancho máximo del modal */
+   border-radius: 20px; /* Bordes redondos */
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Sombra alrededor del modal */
+   text-align: center; /* Contenido centrado */
+}
+
+.close {
+   color: black; /* Color del texto */
+   float: right;
+   font-size: 30px;
+   font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+   color: red; /* Cambio de color al pasar el ratón por encima */
+   text-decoration: none;
+   cursor: pointer;
+}
+
+/* Estilos para el recuadro de contraseña */
+#passwordInput {
+   width: 80%; /* Ancho del recuadro de entrada */
+   padding: 10px; /* Espaciado interno */
+   border: none; /* Sin borde */
+   border-radius: 15px; /* Bordes redondos */
+   font-size: 25px; /* Tamaño de la fuente */
+   margin-top: 10px; /* Margen superior */
+}
+
+/* Estilos para el botón de enviar contraseña */
+#passwordSubmit {
+   background-color: #6700bb; /* Color de fondo */
+   color: white; /* Color del texto */
+   padding: 10px 20px; /* Espaciado interno */
+   border: none; /* Sin borde */
+   border-radius: 10px; /* Bordes redondos */
+   cursor: pointer; /* Cursor */
+   font-size: 16px; /* Tamaño del texto */
+   margin-top: 10px; /* Margen superior */
+}
+
+#passwordSubmit:hover {
+   background-color: #a341ff; /* Cambio de color al pasar el ratón por encima */
+}
+
+/* FORMULARIO EVENTOS */
+
+.modal-content {
+   background-color: rgba(0, 255, 247, 0.8); /* Color de fondo */
+   margin: 11.5% auto;
+   padding: 20px;
+   border: none; /* Sin borde */
+   width: 60%; /* Ancho del modal */
+   max-width: 400px; /* Ancho máximo del modal */
+   border-radius: 20px; /* Bordes redondos */
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Sombra alrededor del modal */
+   text-align: center; /* Contenido centrado */
+}
+
+.close {
+   color: black; /* Color del texto */
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+   color: red; /* Cambio de color al pasar el ratón por encima */
+   text-decoration: none;
+   cursor: pointer;
+}
+
+/* Estilos para el formulario de evento */
+#eventForm {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.form-group {
+   margin-bottom: 15px;
+   width: 100%; /* Ancho del grupo de formulario */
+}
+
+label {
+   color: white; /* Color del texto */
+   display: block;
+   margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   border-radius: 15px;
+   font-size: 16px;
+}
+
+button[type="submit"] {
+   background-color: #6700bb; /* Color de fondo */
+   color: white; /* Color del texto */
+   padding: 10px 20px; /* Espaciado interno */
+   border: none; /* Sin borde */
+   border-radius: 10px; /* Bordes redondos */
+   cursor: pointer; /* Cursor */
+   font-size: 16px; /* Tamaño del texto */
+   margin-top: 10px; /* Margen superior */
+}
+
+button[type="submit"]:hover {
+   background-color: #a341ff; /* Cambio de color al pasar el ratón por encima */
+}
+
+/* Estilos para el campo de entrada de fecha y hora */
+#eventDateTime {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   border-radius: 10px;
+   font-size: 16px;
+}
+
+/* BOXES EVENTOS */
+#eventList {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   gap: 20px; /* Espacio entre los eventos */
+   justify-content: center; /* Centrar las columnas */
+   padding: 20px; /* Espacio alrededor del contenedor */
+}
+
+/* Estilos para cada evento individual */
+#eventList li {
+   background-color: #f0f0f0;
+   padding: 20px;
+   border-radius: 10px; /* Bordes redondeados */
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+   text-align: center;
+   list-style-type: none; /* Eliminar viñetas */
+}
+
+/* DELETE EVENTS */
+
+.delete-event-btn {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   background: none;
+   border: none;
+   cursor: pointer;
+}
+
+/* Estilos para los eventos */
+#eventList li {
+   position: relative; /* Permitir superposición */
+   background-color: #f0f0f0;
+   padding: 20px;
+   border-radius: 10px; /* Bordes redondeados */
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+   text-align: center;
+   list-style-type: none; /* Eliminar viñetas */
+   margin-bottom: 20px; /* Espacio entre eventos */
+}

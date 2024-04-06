@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="calendarioNFT.css" />
   </head>
 
   <body>
@@ -44,433 +45,101 @@
           </li>
         </ul>
       </nav>
-
-      <!-- MAIN INFO -->
-      <button id="addEventButton" onclick="openPasswordPopup()">
-        <i class="fa-regular fa-square-plus"></i>
-      </button>
-
-      <div id="passwordPopup" class="popup">
-        <div class="popup-content">
-          <span class="close" onclick="closePasswordPopup()">&times;</span>
-          <h2>CONTRASEÑA</h2>
-          <input
-            type="password"
-            id="passwordInput"
-            onkeypress="handleKeyPress(event)"
-          />
-          <button id="confirmButton" onclick="checkPassword()">
-            Confirmar
-          </button>
-        </div>
+    </div>
+    <!-- Modal de contraseña -->
+    <div id="passwordModal" class="modal">
+      <div class="modal-content">
+        <span id="closePasswordModalButton" class="close">&times;</span>
+        <h2>Introduce la contraseña</h2>
+        <input type="password" id="passwordInput" placeholder="Contraseña" />
+        <button id="passwordSubmit">Enviar</button>
       </div>
+    </div>
 
-      <div id="eventPopup" class="popup">
-        <div class="popup-content">
-          <span class="close" onclick="closeEventPopup()">&times;</span>
-          <h2>Añadir Evento</h2>
-          <form id="eventForm">
-            <label for="eventName">Nombre del evento:</label><br />
-            <input type="text" id="eventName" name="eventName" required /><br />
+    <!-- Calendar container -->
+    <div id="calendarContainer" class="calendar-container">
+      <!-- Calendar events will be dynamically added here -->
+    </div>
 
-            <label for="eventPhoto">Foto (link):</label><br />
-            <input
-              type="text"
-              id="eventPhoto"
-              name="eventPhoto"
-              required
-            /><br />
+    <!-- Botón "Add Event" -->
+    <button id="addEventButton" class="add-event-btn">
+      <i class="fa-solid fa-calendar-plus"></i> Añadir Evento
+    </button>
 
-            <label for="eventDateTime">Fecha y hora:</label><br />
+    <!-- Modal del formulario de evento -->
+    <div id="eventFormModal" class="modal">
+      <div class="modal-content">
+        <span id="closeEventFormModalButton" class="close">&times;</span>
+        <!-- Contenido del formulario de evento se añadirá aquí -->
+        <h2>Detalles del Evento</h2>
+        <form id="eventForm">
+          <div class="form-group">
+            <label for="eventName">Nombre del Evento:</label>
+            <input type="text" id="eventName" name="eventName" required />
+          </div>
+          <div class="form-group">
+            <label for="eventPhoto">Link de la Foto:</label>
+            <input type="url" id="eventPhoto" name="eventPhoto" />
+          </div>
+          <div class="form-group">
+            <label for="eventDateTime">Fecha y Hora:</label>
             <input
               type="datetime-local"
               id="eventDateTime"
               name="eventDateTime"
               required
-            /><br />
-
-            <label for="eventRed">Red:</label><br />
-            <select id="eventRed" name="eventRed" required>
-              <option value="BTC">BTC</option>
+            />
+          </div>
+          <div class="form-group">
+            <label for="eventRed">Red:</label>
+            <select id="eventRed" name="eventRed">
               <option value="SOL">SOL</option>
               <option value="ETH">ETH</option>
-              <option value="SEI">SEI</option></select
-            ><br />
-
-            <label for="eventAmount">Cantidad:</label><br />
+              <option value="BTC">BTC</option>
+              <option value="SEI">SEI</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="eventNFTQuantity">Cantidad de NFT:</label>
             <input
               type="number"
-              id="eventAmount"
-              name="eventAmount"
+              id="eventNFTQuantity"
+              name="eventNFTQuantity"
+              min="0"
               required
-            /><br />
-
-            <label for="eventPrice">Precio:</label><br />
+            />
+          </div>
+          <div class="form-group">
+            <label for="eventMintPrice">Precio de Minteo:</label>
             <input
               type="number"
-              id="eventPrice"
-              name="eventPrice"
+              id="eventMintPrice"
+              name="eventMintPrice"
               step="0.01"
+              min="0"
               required
-            /><br />
-
-            <label for="eventMintLink">Link minteo:</label><br />
-            <input
-              type="text"
-              id="eventMintLink"
-              name="eventMintLink"
-              required
-            /><br />
-
-            <label for="eventDiscord">Discord:</label><br />
-            <input
-              type="text"
-              id="eventDiscord"
-              name="eventDiscord"
-              required
-            /><br />
-
-            <label for="eventTwitter">Twitter:</label><br />
-            <input
-              type="text"
-              id="eventTwitter"
-              name="eventTwitter"
-              required
-            /><br />
-
-            <button
-              type="button"
-              onclick="submitEvent()"
-              onkeypress="handleKeyPress(event)"
-            >
-              Guardar
-            </button>
-          </form>
-        </div>
+            />
+          </div>
+          <div class="form-group">
+            <label for="eventMintLink">Link del Minteo:</label>
+            <input type="url" id="eventMintLink" name="eventMintLink" />
+          </div>
+          <div class="form-group">
+            <label for="eventTwitter">Twitter:</label>
+            <input type="url" id="eventTwitter" name="eventTwitter" />
+          </div>
+          <div class="form-group">
+            <label for="eventDiscord">Discord:</label>
+            <input type="url" id="eventDiscord" name="eventDiscord" />
+          </div>
+          <button type="submit">Guardar</button>
+        </form>
       </div>
-
-      <div class="grid-container" id="eventContainer"></div>
-
-      <!-- Footer -->
-      <footer>
-        <p>EjeeDao &copy; 2024</p>
-      </footer>
-
-      <style>
-        #addEventButton {
-          background-color: purple; /* Color de fondo */
-          color: white; /* Color del texto */
-          border: none; /* Sin borde */
-          border-radius: 50%; /* Botón circular */
-          width: 50px; /* Ancho del botón */
-          height: 50px; /* Altura del botón */
-          font-size: 24px; /* Tamaño del ícono */
-          cursor: pointer; /* Cursor de apuntar */
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
-          margin: 0px 40em;
-        }
-
-        #addEventButton:hover {
-          background-color: cyan;
-          color: black; /* Color de fondo al pasar el mouse */
-        }
-        .popup {
-          display: none;
-          position: fixed;
-          z-index: 1;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .popup-content {
-          background-color: #fff;
-          margin: 10% auto;
-          padding: 20px;
-          border: 5px solid purple;
-          width: 20%;
-          font-size: 1.5em;
-        }
-
-        #passwordInput {
-          width: 300px; /* Ancho del campo de contraseña */
-          height: 40px; /* Altura del campo de contraseña */
-          font-size: 16px; /* Tamaño de la fuente del campo de contraseña */
-          margin-bottom: 10px; /* Margen inferior del campo de contraseña */
-        }
-
-        #confirmButton {
-          width: 300px;
-          font-size: 1.2em; /* Tamaño de la fuente del botón de confirmar */
-          background-color: #007bff; /* Color de fondo del botón */
-          color: black; /* Color del texto del botón */
-          border: none; /* Sin borde */
-          border-radius: 5px; /* Borde redondeado */
-          cursor: pointer; /* Cursor de apuntar */
-        }
-
-        #confirmButton:hover {
-          background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
-        }
-
-        .close {
-          color: #fff;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-        .grid-container {
-          display: grid;
-          grid-template-columns: repeat(
-            auto-fill,
-            minmax(300px, 1fr)
-          ); /* Columnas de tamaño mínimo de 300px y se ajustan automáticamente */
-          grid-gap: 10px; /* Espacio entre las celdas */
-          overflow-y: auto; /* Habilita el desplazamiento vertical */
-          max-height: calc(
-            100vh - 150px
-          ); /* Altura máxima del contenedor, ajusta según necesites */
-          padding: 0 20px; /* Ajusta el padding izquierdo y derecho */
-          box-sizing: border-box; /* Incluye el padding en el tamaño total */
-        }
-
-        .event-box {
-          border: 1px solid rgba(0, 255, 247, 0.8);
-          padding: 10px;
-          max-width: 100%;
-          height: auto;
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
-        .event-box img {
-          max-width: 100%; /* Establece el ancho máximo de las imágenes al 100% del tamaño del contenedor */
-          max-height: 100%; /* Establece la altura máxima de las imágenes al 100% del tamaño del contenedor */
-          width: auto; /* Permite que la imagen se ajuste automáticamente en su ancho */
-          height: auto; /* Permite que la imagen se ajuste automáticamente en su altura */
-        }
-
-        /* Estilos para el formulario de agregar evento */
-        .popup-content {
-          padding: 20px;
-        }
-
-        #eventPopup {
-          display: none;
-          position: fixed;
-          z-index: 1;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        #eventPopup .popup-content {
-          background-color: #fff;
-          margin: 5% auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
-          max-width: 600px;
-        }
-
-        #eventPopup .close {
-          color: #aaa;
-          float: right;
-          font-size: 50px;
-          font-weight: bold;
-        }
-
-        #eventPopup .close:hover,
-        #eventPopup .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-        #eventPopup h2 {
-          margin-top: 0;
-        }
-
-        #eventPopup label {
-          font-weight: bold;
-        }
-
-        #eventPopup input[type="text"],
-        #eventPopup input[type="number"],
-        #eventPopup select {
-          width: calc(100% - 10px);
-          padding: 10px;
-          margin: 5px 0;
-          border: 1px solid black;
-          border-radius: 5px;
-        }
-
-        #eventPopup button[type="button"] {
-          background-color: #007bff;
-          color: #fff;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-
-        #eventPopup button[type="button"]:hover {
-          background-color: #0056b3;
-        }
-
-        /* Estilos específicos para los elementos del formulario */
-        #eventPopup input[type="datetime-local"] {
-          width: 100%;
-          font-size: 1.2em;
-          color: black;
-        }
-
-        #eventPopup select {
-          width: 100%; /* Ancho completo para select */
-        }
-
-        #eventPopup textarea {
-          width: calc(100% - 10px); /* Ancho completo para textarea */
-          height: 100px; /* Altura específica para textarea */
-        }
-
-        #eventPopup button[type="button"] {
-          background-color: #007bff;
-          color: #fff;
-          padding: 15px 30px; /* Aumenta el padding para hacer el botón más grande */
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          display: block; /* Para que el botón ocupe todo el ancho del contenedor */
-          margin: 0 auto; /* Para centrar horizontalmente */
-        }
-        .event-box h3 {
-          color: white;
-        }
-      </style>
-
-      <script>
-        const addEventButton = document.getElementById("addEventButton");
-        const passwordPopup = document.getElementById("passwordPopup");
-        const eventPopup = document.getElementById("eventPopup");
-        const eventContainer = document.getElementById("eventContainer");
-        let events = []; // Array para almacenar los eventos
-
-        function openPasswordPopup() {
-          passwordPopup.style.display = "block";
-        }
-
-        function closePasswordPopup() {
-          passwordPopup.style.display = "none";
-        }
-
-        function handleKeyPress(event) {
-          if (event.key === "Enter") {
-            event.preventDefault(); // Evitar que se envíe el formulario si está dentro de uno
-            checkPassword();
-          }
-        }
-        function checkPassword() {
-          const passwordInput = document.getElementById("passwordInput").value;
-          // Aquí puedes comparar la contraseña con la que tienes guardada
-          // En este ejemplo, simplemente se compara con una contraseña fija
-          if (passwordInput === "CKR") {
-            openEventPopup();
-            closePasswordPopup();
-          } else {
-            alert("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
-          }
-        }
-
-        function openEventPopup() {
-          eventPopup.style.display = "block";
-        }
-
-        function closeEventPopup() {
-          eventPopup.style.display = "none";
-        }
-
-        function submitEvent() {
-          // Recoger datos del formulario
-          const eventName = document.getElementById("eventName").value;
-          const eventPhoto = document.getElementById("eventPhoto").value;
-          const eventDateTime = document.getElementById("eventDateTime").value;
-          const eventRed = document.getElementById("eventRed").value;
-          const eventAmount = document.getElementById("eventAmount").value;
-          const eventPrice = document.getElementById("eventPrice").value;
-          const eventMintLink = document.getElementById("eventMintLink").value;
-          const eventDiscord = document.getElementById("eventDiscord").value;
-          const eventTwitter = document.getElementById("eventTwitter").value;
-
-          // Crear nuevo elemento div para representar el recuadro del evento
-          const eventBox = document.createElement("div");
-          eventBox.classList.add("event-box");
-
-          // Llenar el contenido del recuadro del evento con los datos del formulario
-          eventBox.innerHTML = `
-          <h3 style="color: white;">${eventName}</h3>
-          <img src="${eventPhoto}" alt="Event Photo" style="background-color: black;">
-          <p style="color: white;">Fecha y Hora: ${eventDateTime}</p>
-          <p style="color: white;">Red: ${eventRed}</p>
-          <p style="color: white;">Cantidad: ${eventAmount}</p>
-          <p style="color: white;">Precio: ${eventPrice}</p>
-          <p style="color: white;">Link minteo: <a href="${eventMintLink}" style="color: white;" target="_blank">${eventMintLink}</a></p>
-          <p style="color: white;">Discord: <a href="${eventDiscord}" style="color: white;" target="_blank">${eventDiscord}</a></p>
-          <p style="color: white;">Twitter: <a href="${eventTwitter}" style="color: white;" target="_blank">${eventTwitter}</a></p>
-          `;
-
-          // Agregar el recuadro del evento al contenedor
-          eventContainer.appendChild(eventBox);
-
-          // Añadir evento al array
-          addEvent(eventName, eventDateTime);
-
-          // Cerrar el popup después de enviar el formulario
-          closeEventPopup();
-        }
-
-        // Función para agregar un evento
-        function addEvent(eventName, eventDateTime) {
-          const event = {
-            eventName: eventName,
-            eventDateTime: new Date(eventDateTime),
-            // Otros campos del evento...
-          };
-
-          // Calcular el tiempo restante hasta el evento
-          const timeUntilEvent = event.eventDateTime - Date.now();
-
-          // Programar la eliminación del evento una hora después de la fecha y hora del evento
-          setTimeout(() => {
-            deleteEvent(event);
-          }, timeUntilEvent + 3600000); // Sumamos una hora en milisegundos
-        }
-
-        // Función para eliminar un evento
-        function deleteEvent(event) {
-          const index = events.indexOf(event);
-          if (index !== -1) {
-            events.splice(index, 1);
-            console.log(
-              `Evento '${event.eventName}' eliminado automáticamente una hora después de su fecha y hora programadas.`
-            );
-          }
-        }
-      </script>
     </div>
+
+    <!-- Lista de eventos -->
+    <ul id="eventList"></ul>
+
+    <script src="calendarioNFT.js"></script>
   </body>
 </html>
