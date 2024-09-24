@@ -1,133 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EjeeDao Web</title>
-    <script
-      src="https://kit.fontawesome.com/bd9bcfe1f7.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | IsekaiSpaceSurvivor</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
   </head>
-
   <body>
-    <div class="wrapper">
-      <!-- Header nav -->
-      <nav class="main-nav">
-        <ul>
-          <li>
-            <img
-              src="img/LOGOejeeDao.png"
-              alt="logo-ejeedao"
-              class="logo-img"
-            />
-          </li>
-          <li>
-            <a href="https://ejeedao.com/">Home</a>
-          </li>
-          <li>
-            <a href="calendarioNFT.html">NFTs</a>
-          </li>
-          <li>
-            <a href="juegosweb3.html">Juegos Web3</a>
-          </li>
-          <li>
-            <a href="contacto.html">Contacto</a>
-          </li>
-          <li>
-            <a href="listNft.html">List NFT</a>
-          </li>
-          <li>
-            <a href="#">Log In</a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- MAIN INFO -->
-      <section class="top-container">
-        <header class="showcase">
-          <h1>EjeeDao, la mejor comunidad crypto</h1>
-          <p>
-            Bienvenidos a EjeeDao, un refugio virtual donde la emoción y la
-            curiosidad se fusionan en torno a los NFT y los juegos Web3. Aquí,
-            personas de todos los orígenes y niveles de experiencia se congregan
-            para descubrir el fascinante mundo de la tecnología blockchain.
-            Desde personas que no han usado la blockchain, que buscan nuevos
-            conocimientos y experiencias, hasta el máster de la blockchain, en
-            esta comunidad todos son bienvenidos.
-          </p>
-          <p>
-            Nuestra comunidad se destaca por ofrecer una amplia gama de
-            información sobre los NFT y los juegos Web3 de manera accesible y
-            comprensible para todos. A través de charlas, tutoriales y debates
-            abiertos, compartimos nuestro conocimiento y experiencias, creando
-            un ambiente de aprendizaje colaborativo y enriquecedor.
-          </p>
-          <p>
-            Aquí no se requiere experiencia previa ni conocimientos técnicos
-            avanzados; lo único que necesitas es una mente abierta y ganas de
-            sumergirte en este emocionante universo digital. Aquí, cada miembro
-            es valorado por su contribución única y su disposición a aprender y
-            crecer junto a los demás en esta aventura colectiva de
-            descubrimiento tecnológico.
-          </p>
-        </header>
-        <div class="top-box top-box-b">
-          <img src="/img/IMGmainejee.png" alt="showcase" class="showcase-img" />
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
         </div>
-      </section>
-
-      <!-- Boxes Section -->
-      <section class="boxes">
-        <div class="box">
-          <i class="fas fa-book-open fa-4x" style="color: white"></i>
-          <h3>Whitepaper</h3>
-          <p>Nuestros planes de futuro con nuestra comunidad</p>
-          <a target="_blank" href="/img/WhitepaperED.pdf">
-            <p>
-              <button
-                style="
-                  font-size: 35px;
-                  background-color: rgba(0, 255, 247, 0.8);
-                  color: #6700bb;
-                  border-radius: 12px;
-                  margin: 25px;
-                "
-              >
-                Whitepaper PDF
-              </button>
-            </p>
-          </a>
-        </div>
-        <div class="box">
-          <i
-            class="fa-solid fa-hand-holding-dollar fa-4x"
-            style="color: white"
-          ></i>
-          <h3>Que ofrecemos</h3>
-          <p>Gran comunidad, parecido a una familia</p>
-          <p>Información actualizada sobre el mundo de las crypto</p>
-          <p>Información y apoyo en el mundo de los juegos Web3</p>
-          <p>Proyecto con buenas ideas para la comunidad</p>
-        </div>
-        <div class="box">
-          <i class="fa-solid fa-link fa-4x" style="color: white"></i>
-          <h3>Links</h3>
-          <a target="_blank" href="https://discord.gg/7R2UWVn3">
-            <i class="fa-brands fa-discord fa-4x"></i>
-          </a>
-          <a target="_blank" href="https://twitter.com/Ejeedao">
-            <i class="fa-brands fa-x-twitter fa-4x"></i>
-          </a>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer>
-        <p>EjeeDao &copy; 2024</p>
-      </footer>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">IsekaiSpaceSurvivor</div>
+      </div>
     </div>
+    <script>
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/BetaIsekaiSpaceSurvivor.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/BetaIsekaiSpaceSurvivor.data.br",
+        frameworkUrl: buildUrl + "/BetaIsekaiSpaceSurvivor.framework.js.br",
+        codeUrl: buildUrl + "/BetaIsekaiSpaceSurvivor.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "IsekaiSpaceSurvivor",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+      };
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+        canvas.style.width = "1920px";
+        canvas.style.height = "1080px";
+      }
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                fullscreenButton.onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
   </body>
 </html>
